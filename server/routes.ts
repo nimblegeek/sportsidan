@@ -1,24 +1,25 @@
 import type { Express } from "express";
 import { db } from "../db";
 import { clubs, categories } from "@db/schema";
-import { eq, ilike } from "drizzle-orm";
+import { eq, ilike, and, sql } from "drizzle-orm";
 
 export function registerRoutes(app: Express) {
   app.get("/api/clubs", async (req, res) => {
     const { search, category } = req.query;
-    let query = db.select().from(clubs);
+    const conditions = [];
     
-    if (search) {
-      query = query.where(
-        ilike(clubs.name, `%${search}%`)
-      );
+    if (search && typeof search === 'string') {
+      conditions.push(ilike(clubs.name, `%${search}%`));
     }
     
-    if (category) {
-      query = query.where(eq(clubs.categoryId, Number(category)));
+    if (category && typeof category === 'string') {
+      conditions.push(eq(clubs.categoryId, Number(category)));
     }
     
-    const result = await query;
+    const result = await db.select()
+      .from(clubs)
+      .where(conditions.length > 0 ? and(...conditions) : undefined);
+      
     res.json(result);
   });
 
