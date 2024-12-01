@@ -8,10 +8,14 @@ import CategoryFilter from "../components/CategoryFilter";
 import AddClubDialog from "../components/AddClubDialog";
 import { fetchClubs, fetchCategories } from "../lib/api";
 
-export default function Home() {
+interface HomeProps {
+  isAddClubOpen: boolean;
+  setIsAddClubOpen: (open: boolean) => void;
+}
+
+export default function Home({ isAddClubOpen, setIsAddClubOpen }: HomeProps) {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [isAddClubOpen, setIsAddClubOpen] = useState(false);
 
   const { data: clubs, isLoading: isLoadingClubs } = useQuery({
     queryKey: ["clubs", search, selectedCategory],
