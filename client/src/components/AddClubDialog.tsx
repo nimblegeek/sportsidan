@@ -33,6 +33,7 @@ export default function AddClubDialog({
       phone: "",
       email: "",
       website: "",
+      organizationNumber: "",
     },
   });
 
@@ -200,6 +201,23 @@ export default function AddClubDialog({
                   </FormItem>
                 )}
               />
+            <FormField
+              control={form.control}
+              name="organizationNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Organization Number</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter Swedish organization number (YYMMDD-XXXX)"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             </div>
 
             <FormField
@@ -228,7 +246,7 @@ export default function AddClubDialog({
               >
                 Cancel
               </Button>
-              <Button type="submit" loading={mutation.isPending}>
+              <Button type="submit" disabled={mutation.isPending}>
                 Add Club
               </Button>
             </div>
