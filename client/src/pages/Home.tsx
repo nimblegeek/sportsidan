@@ -24,8 +24,8 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="bg-gradient-to-r from-blue-600 to-blue-700 py-16 px-4">
+    <div>
+      <header className="bg-gradient-to-r from-blue-600 to-blue-700 py-16 px-4 mt-[-1px]">
         <div className="container mx-auto max-w-7xl">
           <h1 className="text-4xl font-bold text-white mb-4">
             Community Sports Clubs
